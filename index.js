@@ -15,8 +15,9 @@ client.once("ready", () => {
 });
 
 client.on("voiceStateUpdate", async (oldState, newState) => {
-  if (!oldState.channelId && newState.channelId) {
-    const logChannel = newState.guild.channels.cache.get("1461062717900066968"); // ID كـ string
+  // أي مرة يدخل العضو روم صوتي (حتى لو كان في روم قبل)
+  if (newState.channelId) {
+    const logChannel = newState.guild.channels.cache.get("1461062717900066968"); // ID القناة النصية
     if (!logChannel || !logChannel.isTextBased()) return;
 
     const member = newState.member;
@@ -24,7 +25,7 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
 
     const embed = new EmbedBuilder()
       .setColor("Green")
-      .setTitle("🎧 تسجيل دخول صوتي")
+      .setTitle("🎧 دخول روم صوتي")
       .setDescription(`👤 **${member.user.tag}**\n📢 دخل روم صوتي`)
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
       .setTimestamp();
@@ -38,5 +39,4 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
   }
 });
 
-// تسجيل دخول البوت
-client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.Ga_B6B.hK9z2-ga2TK2_I0m1Zyo5aAkqTFR7ePmZfBtBk");
+client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.Ga_B6B.hK9z2-ga2TK2_I0m1Zyo5aAkqTFR7ePmZfBtBk"); // ضع التوكن بين علامات اقتباس
