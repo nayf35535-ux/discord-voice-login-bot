@@ -10,23 +10,33 @@ const client = new Client({
   ]
 });
 
+// خريطة لتتبع آخر روم لكل عضو
+const lastChannel = new Map();
+
 client.once("ready", () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
 });
 
 client.on("voiceStateUpdate", async (oldState, newState) => {
-  // أي مرة يدخل العضو روم صوتي (حتى لو كان في روم قبل)
-  if (oldState.channelId !== newState.channelId && newState.channelId) {
+  const memberId = newState.member.id;
+  const newChannelId = newState.channelId;
+
+  // إذا لم يتغير الروم → لا ترسل الرسالة
+  if (lastChannel.get(memberId) === newChannelId) return;
+
+  // تحديث آخر روم للعضو
+  lastChannel.set(memberId, newChannelId);
+
+  // إذا العضو دخل روم جديد
+  if (newChannelId) {
     const logChannel = newState.guild.channels.cache.get("1461062717900066968");
     if (!logChannel || !logChannel.isTextBased()) return;
 
-    // الملف
-    const video = new AttachmentBuilder("IMG_3690.gif");
+    // الملف (GIF)
+    const gif = new AttachmentBuilder("IMG_3690.gif");
 
-    // إرسال الفيديو فقط
-    await logChannel.send({
-      files: [video]
-    });
+    // إرسال GIF فقط
+    await logChannel.send({ files: [gif] });
   }
 });
 
