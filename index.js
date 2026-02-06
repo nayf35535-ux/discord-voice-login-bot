@@ -16,7 +16,7 @@ client.once("ready", () => {
 
 client.on("voiceStateUpdate", async (oldState, newState) => {
   if (!oldState.channelId && newState.channelId) {
-    const logChannel = newState.guild.channels.cache.get(process.env.LOG_CHANNEL_ID);
+    const logChannel = newState.guild.channels.cache.get(1461062717900066968);
     if (!logChannel) return;
 
     const member = newState.member;
