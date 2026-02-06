@@ -38,4 +38,4 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
   }
 });
 
-client.login(MTQ2OTM5MDQzMzIxNzAyMDA1NQ.Ga_B6B.hK9z2-ga2TK2_I0m1Zyo5aAkqTFR7ePmZfBtBk);
+client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.Ga_B6B.hK9z2-ga2TK2_I0m1Zyo5aAkqTFR7ePmZfBtBk");
