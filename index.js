@@ -17,14 +17,14 @@ const analyses = [
   "🎨 قد قالك احد انك فكوك!",
   "🤔 شكلك حبيبي!",
   "😎 اففف واضح انك هطف!",
-  "😎 ييحلو عطنى وجه!"  // آخر عنصر، لا تحتاج فاصلة بعده
+  "😎 ييحلو عطنى وجه!"  // آخر عنصر
 ];
 
 client.once("ready", async () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
 
-  setInterval(async () => {
-    const guild = client.guilds.cache.get("1461062091824955598"); // ضع ID السيرفر
+  const sendAnalysis = async () => {
+    const guild = client.guilds.cache.get("1461062091824955598"); // ID السيرفر
     if (!guild) return;
 
     await guild.members.fetch();
@@ -46,15 +46,20 @@ client.once("ready", async () => {
       .setTimestamp();
 
     // إرسال Embed مع منشن العضو
-    const channel = guild.channels.cache.get("1461062717900066968"); // ضع ID القناة النصية
+    const channel = guild.channels.cache.get("1461062717900066968"); // ID القناة النصية
     if (!channel || !channel.isTextBased()) return;
 
     await channel.send({
-      content: `<@${randomMember.id}>`, // هذا السطر يضيف المنشن
+      content: `<@${randomMember.id}>`,
       embeds: [embed]
     });
-  }, 1800000); // كل 30 دقيقة
+  };
+
+  // تأخير أول مرة 30 دقيقة، ثم كل 30 دقيقة
+  setTimeout(() => {
+    sendAnalysis(); // أول رسالة بعد 30 دقيقة
+    setInterval(sendAnalysis, 1800000); // كل 30 دقيقة بعد ذلك
+  }, 1800000);
 });
 
-client.login(process.env.TOKEN); // بدلاً من كتابة التوكن مباشرة
-
+client.login(process.env.TOKEN);
