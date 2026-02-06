@@ -23,7 +23,7 @@ client.once("ready", async () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
 
   setInterval(async () => {
-    const guild = client.guilds.cache.get("ID_السيرفر"); // ضع ID السيرفر
+    const guild = client.guilds.cache.get("1461062091824955598"); // ضع ID السيرفر
     if (!guild) return;
 
     await guild.members.fetch();
@@ -45,11 +45,11 @@ client.once("ready", async () => {
       .setTimestamp();
 
     // إرسال Embed في القناة المحددة
-    const channel = guild.channels.cache.get("ID_القناة"); // ضع ID القناة النصية
+    const channel = guild.channels.cache.get("1461062717900066968"); // ضع ID القناة النصية
     if (!channel || !channel.isTextBased()) return;
 
     await channel.send({ embeds: [embed] });
   }, 5); // كل 30 دقيقة
 });
 
-client.login(process.env.TOKEN);
+client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.G-3IAP.SFk5owsocR-9tPzRgu8REVrMRGDIj3GAUCtYpo");
