@@ -39,4 +39,4 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
   }
 });
 
-client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.Ga_B6B.hK9z2-ga2TK2_I0m1Zyo5aAkqTFR7ePmZfBtBk"); // ضع التوكن بين علامات اقتباس
+client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.G-3IAP.SFk5owsocR-9tPzRgu8REVrMRGDIj3GAUCtYpo"); // ضع التوكن بين علامات اقتباس
