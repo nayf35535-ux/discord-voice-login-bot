@@ -1,43 +1,55 @@
-import { Client, GatewayIntentBits, AttachmentBuilder } from "discord.js";
+import { Client, GatewayIntentBits, EmbedBuilder } from "discord.js";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildVoiceStates
-  ]
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers]
 });
 
-// خريطة لتتبع آخر روم لكل عضو
-const lastChannel = new Map();
+// مصفوفة جمل تحليلية متنوعة
+const analyses = [
+  "🎯 أنت مركز وهادف، تحب الإنجاز!",
+  "😂 مرن ومرح مع الجميع!",
+  "😴 هادئ ويحب الراحة!",
+  "💡 ذكي جدًا ويعرف كيف يتصرف!",
+  "🔥 مليء بالطاقة والحماس!",
+  "🎨 مبدع ويحب الأفكار الجديدة!",
+  "🤔 تحب التفكير العميق وتحليل الأمور!",
+  "😎 شخص جذاب ويحب المزاح!"
+];
 
-client.once("ready", () => {
+client.once("ready", async () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
+
+  setInterval(async () => {
+    const guild = client.guilds.cache.get("ID_السيرفر"); // ضع ID السيرفر
+    if (!guild) return;
+
+    await guild.members.fetch();
+
+    // اختيار عضو عشوائي غير بوت
+    const members = guild.members.cache.filter(m => !m.user.bot);
+    const randomMember = members.random();
+    if (!randomMember) return;
+
+    // اختيار تحليل عشوائي
+    const randomAnalysis = analyses[Math.floor(Math.random() * analyses.length)];
+
+    // إنشاء Embed
+    const embed = new EmbedBuilder()
+      .setColor("Purple")
+      .setTitle("🔮 تحليل الشخصية")
+      .setDescription(randomAnalysis)
+      .setFooter({ text: `لـ ${randomMember.user.tag}` })
+      .setTimestamp();
+
+    // إرسال Embed في القناة المحددة
+    const channel = guild.channels.cache.get("ID_القناة"); // ضع ID القناة النصية
+    if (!channel || !channel.isTextBased()) return;
+
+    await channel.send({ embeds: [embed] });
+  }, 5); // كل 30 دقيقة
 });
 
-client.on("voiceStateUpdate", async (oldState, newState) => {
-  const memberId = newState.member.id;
-  const newChannelId = newState.channelId;
-
-  // إذا لم يتغير الروم → لا ترسل الرسالة
-  if (lastChannel.get(memberId) === newChannelId) return;
-
-  // تحديث آخر روم للعضو
-  lastChannel.set(memberId, newChannelId);
-
-  // إذا العضو دخل روم جديد
-  if (newChannelId) {
-    const logChannel = newState.guild.channels.cache.get("1461062717900066968");
-    if (!logChannel || !logChannel.isTextBased()) return;
-
-    // الملف (GIF)
-    const gif = new AttachmentBuilder("IMG_3690.gif");
-
-    // إرسال GIF فقط
-    await logChannel.send({ files: [gif] });
-  }
-});
-
-client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.G-3IAP.SFk5owsocR-9tPzRgu8REVrMRGDIj3GAUCtYpo");
+client.login(process.env.TOKEN);
