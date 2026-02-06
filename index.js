@@ -52,4 +52,4 @@ client.once("ready", async () => {
   }, 5); // كل 30 دقيقة
 });
 
-client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.G-3IAP.SFk5owsocR-9tPzRgu8REVrMRGDIj3GAUCtYpo");
+client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.GLJ_7Z.xJuytXwwxigWt8_K4GEwswN2sq9wvN-DEilhCI");
