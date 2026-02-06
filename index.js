@@ -21,7 +21,7 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
     if (!logChannel || !logChannel.isTextBased()) return;
 
     // الملف
-    const video = new AttachmentBuilder("./login.mp4");
+    const video = new AttachmentBuilder("./copy_08F22F9A-6585-4CAB-825F-D10B9FB32230.mov");
 
     // إرسال الفيديو فقط
     await logChannel.send({
