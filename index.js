@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, EmbedBuilder, AttachmentBuilder } from "discord.js";
+import { Client, GatewayIntentBits, AttachmentBuilder } from "discord.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -16,27 +16,18 @@ client.once("ready", () => {
 
 client.on("voiceStateUpdate", async (oldState, newState) => {
   // أي مرة يدخل العضو روم صوتي (حتى لو كان في روم قبل)
-  if (newState.channelId) {
-    const logChannel = newState.guild.channels.cache.get("1461062717900066968"); // ID القناة النصية
+  if (oldState.channelId !== newState.channelId && newState.channelId) {
+    const logChannel = newState.guild.channels.cache.get("1461062717900066968");
     if (!logChannel || !logChannel.isTextBased()) return;
 
-    const member = newState.member;
+    // الملف
     const video = new AttachmentBuilder("./login.mp4");
 
-    const embed = new EmbedBuilder()
-      .setColor("Green")
-      .setTitle("🎧 دخول روم صوتي")
-      .setDescription(`👤 **${member.user.tag}**\n📢 دخل روم صوتي`)
-      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-      .setTimestamp();
-
+    // إرسال الفيديو فقط
     await logChannel.send({
-      content: "@everyone",
-      embeds: [embed],
-      allowedMentions: { parse: ["everyone"] }
+      files: [video]
     });
-
   }
 });
 
-client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.G-3IAP.SFk5owsocR-9tPzRgu8REVrMRGDIj3GAUCtYpo"); // ضع التوكن بين علامات اقتباس
+client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.G-3IAP.SFk5owsocR-9tPzRgu8REVrMRGDIj3GAUCtYpo");
