@@ -31,10 +31,10 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
       .setTimestamp();
 
     await logChannel.send({
-  content: "@everyone",
-  embeds: [embed],
-  allowedMentions: { parse: ["everyone"] }
-});
+      content: "@everyone",
+      embeds: [embed],
+      allowedMentions: { parse: ["everyone"] }
+    });
 
   }
 });
