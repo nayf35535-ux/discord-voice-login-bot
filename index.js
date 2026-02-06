@@ -16,11 +16,10 @@ client.once("ready", () => {
 
 client.on("voiceStateUpdate", async (oldState, newState) => {
   if (!oldState.channelId && newState.channelId) {
-    const logChannel = newState.guild.channels.cache.get(1461062717900066968);
-    if (!logChannel) return;
+    const logChannel = newState.guild.channels.cache.get("1461062717900066968"); // ID كـ string
+    if (!logChannel || !logChannel.isTextBased()) return;
 
     const member = newState.member;
-
     const video = new AttachmentBuilder("./login.mp4");
 
     const embed = new EmbedBuilder()
@@ -33,9 +32,11 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
     await logChannel.send({
       content: "@everyone",
       embeds: [embed],
-      files: [video]
+      files: [video],
+      allowedMentions: { parse: ["everyone"] }
     });
   }
 });
 
+// تسجيل دخول البوت
 client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.Ga_B6B.hK9z2-ga2TK2_I0m1Zyo5aAkqTFR7ePmZfBtBk");
