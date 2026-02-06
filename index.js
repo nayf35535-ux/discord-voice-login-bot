@@ -56,4 +56,5 @@ client.once("ready", async () => {
   }, 20000); // كل 30 دقيقة
 });
 
-client.login("MTQ2OTM5MDQzMzIxNzAyMDA1NQ.GLJ_7Z.xJuytXwwxigWt8_K4GEwswN2sq9wvN-DEilhCI");
+client.login(process.env.TOKEN); // بدلاً من كتابة التوكن مباشرة
+
