@@ -53,7 +53,7 @@ client.once("ready", async () => {
       content: `<@${randomMember.id}>`, // هذا السطر يضيف المنشن
       embeds: [embed]
     });
-  }, 1800000); // كل 30 دقيقة
+  }, 20000); // كل 30 دقيقة
 });
 
 client.login(process.env.TOKEN);
